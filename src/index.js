@@ -1,8 +1,7 @@
-// src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/App';
-import './index.css'; // valgfritt hvis du har CSS
+import './index.css'; // Hvis du ikke ønsker styling, lag en tom fil
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -10,3 +9,4 @@ root.render(
     <App />
   </React.StrictMode>
 );
+

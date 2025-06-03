@@ -1,8 +1,8 @@
 // src/index.js
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css'; // valgfritt, hvis du har styling her
+import App from './components/App';
+import './index.css'; // valgfritt hvis du har CSS
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

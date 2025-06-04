@@ -29,5 +29,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+<<<<<<< HEAD
+=======
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.4",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "tailwindcss": "^4.1.8"
+>>>>>>> d5510d29 (Install postcss-flexbugs-fixes)
   }
 }

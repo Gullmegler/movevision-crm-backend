@@ -1,7 +1,10 @@
+/** @type {import('tailwindcss').Config} */
 export default {
-  plugins: {
-    'tailwindcss/nesting': {},
-    tailwindcss: {},
-    autoprefixer: {},
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
+  theme: {
+    extend: {},
   },
+  plugins: [],
 }

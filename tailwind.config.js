@@ -1,9 +1,7 @@
-module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}"
-  ],
-  theme: {
-    extend: {},
+export default {
+  plugins: {
+    'tailwindcss/nesting': {},
+    tailwindcss: {},
+    autoprefixer: {},
   },
-  plugins: [],
 }

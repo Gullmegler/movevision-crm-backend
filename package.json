@@ -7,7 +7,7 @@
     "react-dom": "^18.3.1",
     "react-icons": "^5.0.1",
     "react-router-dom": "^6.20.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "postcss": "^7.0.39",
     "autoprefixer": "^9.8.8"
@@ -29,14 +29,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-<<<<<<< HEAD
-=======
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "tailwindcss": "^4.1.8"
->>>>>>> d5510d29 (Install postcss-flexbugs-fixes)
   }
 }

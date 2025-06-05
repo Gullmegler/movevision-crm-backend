@@ -5,4 +5,3 @@ export default defineConfig({
   plugins: [react()],
 });
 
- 624051f1 (Add vite.config.js)

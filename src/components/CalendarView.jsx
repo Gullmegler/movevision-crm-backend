@@ -1,88 +1,147 @@
-import React, { useState } from "react";
+import React from "react";
+import { FaUser, FaTruck } from "react-icons/fa";
 
-const initialJobs = [
+const jobs = [
   {
     id: 1,
-    customer: "Siri Valdman",
-    date: "2025-06-04",
+    customer: "John Doe",
+    date: "2025-06-03",
     time: "08:30",
-    vehicle: "BE 22970",
-    price: 7500,
+    vehicle: "TRUCK 001",
+    price: "7500",
     status: "Utført",
-    employee: "Frank Karlsen",
-    label: "moving"
+    employeeCount: 2,
+    truckCount: 1,
+    label: "Private, Supplies",
   },
   {
     id: 2,
-    customer: "Joakim Engelsen",
+    customer: "Jane Smith",
     date: "2025-06-04",
     time: "14:00",
-    vehicle: "BR 22971",
-    price: 1400,
+    vehicle: "TRUCK 002",
+    price: "1400",
     status: "Godkjent",
-    employee: "Frank Karlsen",
-    label: "moving"
-  }
+    employeeCount: 3,
+    truckCount: 2,
+    label: "Commercial, Waste",
+  },
 ];
 
-const vehicleList = ["BE 22970", "BR 22971", "DS 10916", "DS 15433"];
-const weekDates = ["2025-06-03", "2025-06-04", "2025-06-05", "2025-06-06", "2025-06-07"];
+const vehicleList = ["TRUCK 001", "TRUCK 002", "TRUCK 003"];
+const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const today = new Date("2025-06-03T00:00:00");
+const days = [...Array(7)].map((_, i) => {
+  const d = new Date(today);
+  d.setDate(d.getDate() + i);
+  return d.toISOString().split("T")[0];
+});
 
-export default function CalendarView() {
-  const [jobs, setJobs] = useState(initialJobs);
+const getStatusColor = (status) => {
+  switch (status) {
+    case "Godkjent":
+      return "bg-orange-500 text-white";
+    case "Utført":
+      return "bg-green-500 text-white";
+    case "På vent":
+      return "bg-yellow-400 text-black";
+    case "Spam":
+    case "Slett":
+      return "bg-gray-400 text-white";
+    default:
+      return "bg-white text-black";
+  }
+};
 
-  const getJobs = (date, vehicle) =>
-    jobs.filter((job) => job.date === date && job.vehicle === vehicle);
-
-  const formatDate = (date) => {
-    const options = { weekday: "short", day: "2-digit", month: "short" };
-    return new Date(date).toLocaleDateString("no-NO", options);
-  };
-
+const renderIcons = (icon, count) => {
   return (
-    <div className="p-4 overflow-x-auto">
-      <h2 className="text-xl font-semibold mb-4">Kalender – Flytteoppdrag</h2>
-      <div className="border rounded overflow-x-auto shadow bg-white">
-        <table className="min-w-full table-auto text-sm">
-          <thead>
-            <tr>
-              <th className="bg-orange-600 text-white px-4 py-2">FLYTTEBIL</th>
-              {weekDates.map((date) => (
-                <th key={date} className="bg-orange-600 text-white px-4 py-2 text-center">
-                  {formatDate(date)}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {vehicleList.map((vehicle) => (
-              <tr key={vehicle} className="border-t border-gray-200">
-                <td className="bg-gray-50 px-4 py-2 font-semibold">{vehicle}</td>
-                {weekDates.map((date) => (
-                  <td key={`${vehicle}-${date}`} className="p-2 align-top">
-                    {getJobs(date, vehicle).map((job) => (
-                      <div
-                        key={job.id}
-                        className={`mb-2 p-2 rounded text-xs shadow border-l-4 ${
-                          job.status === "Godkjent"
-                            ? "border-orange-500 bg-orange-100"
-                            : "border-green-600 bg-green-100"
-                        }`}
-                      >
-                        <div className="font-bold">#{job.id} {job.customer}</div>
-                        <div>{job.time} • Kr {job.price.toLocaleString()}</div>
-                        <div>{job.employee} • {job.label}</div>
-                        <div className="text-gray-600">{job.status}</div>
-                      </div>
-                    ))}
-                  </td>
-                ))}
-              </tr>
+    <div className="flex gap-1 text-white text-xs">
+      {[...Array(count)].map((_, i) => (
+        <span key={i}>{icon}</span>
+      ))}
+    </div>
+  );
+};
+
+const CalendarView = () => {
+  return (
+    <div className="min-h-screen bg-orange-50 text-sm font-sans">
+      <div className="flex">
+        <div className="w-48 bg-black text-white p-4 min-h-screen">
+          <img src="/logo.png" alt="Move Vision CRM" className="w-32 mb-6" />
+          <nav className="space-y-2">
+            {["Dashboard","Calendar","Leads","Invoices","Settings"].map((item, i) => (
+              <div
+                key={i}
+                className="hover:bg-orange-500 p-2 rounded cursor-pointer"
+              >
+                {item}
+              </div>
             ))}
-          </tbody>
-        </table>
+          </nav>
+          <div className="absolute bottom-6 text-white text-xs left-4">
+            <span className="font-semibold">Superadmin</span>
+          </div>
+        </div>
+
+        <div className="flex-1 p-6">
+          <h2 className="text-xl font-bold mb-4">Calendar – Moving Jobs</h2>
+
+          <div className="overflow-x-auto">
+            <div className="grid grid-cols-[12rem_repeat(7,minmax(8rem,1fr))]">
+              <div className="bg-white border p-2 font-bold text-center">Vehicle</div>
+              {days.map((day, i) => (
+                <div
+                  key={i}
+                  className="bg-white border p-2 font-bold text-center"
+                >
+                  {weekdays[i]}<br />{day.slice(8, 10)}. {day.slice(5, 7)}
+                </div>
+              ))}
+              {vehicleList.map((vehicle, i) => (
+                <React.Fragment key={vehicle}>
+                  <div className="bg-white border font-medium p-2">
+                    <div className="flex items-center gap-2">
+                      <FaTruck className="text-gray-700" /> {vehicle}
+                    </div>
+                  </div>
+                  {days.map((day, di) => {
+                    const jobsForDay = jobs.filter(
+                      (job) => job.vehicle === vehicle && job.date === day
+                    );
+                    return (
+                      <div key={di} className="border min-h-[6rem] p-1 space-y-1">
+                        {jobsForDay.map((job) => (
+                          <div
+                            key={job.id}
+                            className={`rounded p-1 text-xs shadow-sm ${getStatusColor(
+                              job.status
+                            )}`}
+                          >
+                            <div className="font-semibold">
+                              #{job.id} {job.customer}
+                            </div>
+                            <div className="text-xs">{job.time} • Kr {job.price}</div>
+                            <div className="italic text-xs">{job.status}</div>
+                            <div className="flex gap-1 items-center">
+                              {renderIcons(<FaUser />, job.employeeCount)}
+                              {renderIcons(<FaTruck />, job.truckCount)}
+                            </div>
+                            <div className="text-[10px] text-gray-700">{job.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  })}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
-}
+};
+
+export default CalendarView;
 

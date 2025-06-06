@@ -1,7 +1,7 @@
 export default {
   plugins: {
-    'postcss-flexbugs-fixes': {},
     tailwindcss: {},
     autoprefixer: {},
+    'postcss-flexbugs-fixes': {}
   }
 }

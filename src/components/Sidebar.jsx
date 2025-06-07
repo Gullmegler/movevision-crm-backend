@@ -78,7 +78,7 @@ export default function Sidebar({ isAdmin }) {
         )}
       </div>
 
-      <div className="pt-6 border-t">
+      <div className="pt-6 border-t mt-auto">
         {navItem('/company', 'Company Settings', <FiSettings />)}
       </div>
     </aside>

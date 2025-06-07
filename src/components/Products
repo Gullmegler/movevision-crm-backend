@@ -1,0 +1,37 @@
+import React from 'react';
+
+const products = [
+  { id: 1, name: "Moving Box", price: 3.5, unit: "each" },
+  { id: 2, name: "Stretch Wrap", price: 12.0, unit: "roll" },
+  { id: 3, name: "Moving Blanket", price: 25.0, unit: "piece" },
+  { id: 4, name: "Packing Tape", price: 2.5, unit: "roll" },
+  { id: 5, name: "TV Box", price: 18.0, unit: "each" },
+];
+
+export default function Products() {
+  return (
+    <div className="p-6">
+      <h2 className="text-xl font-semibold mb-4">Products & Supplies</h2>
+      <div className="overflow-auto shadow rounded bg-white">
+        <table className="min-w-full text-sm table-auto">
+          <thead className="bg-gray-100 text-left text-gray-600">
+            <tr>
+              <th className="px-4 py-2">Product</th>
+              <th className="px-4 py-2">Price (USD)</th>
+              <th className="px-4 py-2">Unit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((item) => (
+              <tr key={item.id} className="border-t">
+                <td className="px-4 py-2">{item.name}</td>
+                <td className="px-4 py-2">${item.price.toFixed(2)}</td>
+                <td className="px-4 py-2">{item.unit}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}

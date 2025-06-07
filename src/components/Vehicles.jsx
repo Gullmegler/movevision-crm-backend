@@ -1,39 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const vehicles = [
-  { id: 1, name: "Box Truck 01", plate: "CA12345", capacity: "1050 cu ft", status: "available" },
-  { id: 2, name: "Sprinter Van 02", plate: "TX67890", capacity: "420 cu ft", status: "in use" },
-  { id: 3, name: "Trailer 03", plate: "NY13579", capacity: "1765 cu ft", status: "maintenance" },
+  {
+    id: 1,
+    name: 'TRUCK 001',
+    plate: 'AB12345',
+    gps: 'Enabled',
+    capacity: '30 m³',
+    driver: 'John Doe',
+    status: 'Active'
+  },
+  {
+    id: 2,
+    name: 'TRUCK 002',
+    plate: 'CD67890',
+    gps: 'Disabled',
+    capacity: '40 m³',
+    driver: 'Anna Smith',
+    status: 'In Service'
+  },
+  {
+    id: 3,
+    name: 'VAN 003',
+    plate: 'EF24680',
+    gps: 'Enabled',
+    capacity: '15 m³',
+    driver: 'Carlos Mendez',
+    status: 'Active'
+  }
 ];
 
-const statusColor = {
-  available: "bg-green-100 text-green-800",
-  "in use": "bg-yellow-100 text-yellow-800",
-  maintenance: "bg-red-100 text-red-800",
-};
-
 export default function Vehicles() {
+  const [vehicleList] = useState(vehicles);
+
   return (
     <div className="p-6">
-      <h2 className="text-xl font-semibold mb-4">Fleet Vehicles (US Units)</h2>
-      <div className="overflow-auto shadow rounded bg-white">
-        <table className="min-w-full text-sm table-auto">
-          <thead className="bg-gray-100 text-left text-gray-600">
+      <h2 className="text-2xl font-bold mb-4 text-gray-800">Vehicles</h2>
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-200">
+          <thead className="bg-gray-100">
             <tr>
-              <th className="px-4 py-2">Vehicle</th>
-              <th className="px-4 py-2">License Plate</th>
-              <th className="px-4 py-2">Capacity</th>
-              <th className="px-4 py-2">Status</th>
+              <th className="text-left px-4 py-2 border-b">Name</th>
+              <th className="text-left px-4 py-2 border-b">Plate</th>
+              <th className="text-left px-4 py-2 border-b">GPS</th>
+              <th className="text-left px-4 py-2 border-b">Capacity</th>
+              <th className="text-left px-4 py-2 border-b">Driver</th>
+              <th className="text-left px-4 py-2 border-b">Status</th>
             </tr>
           </thead>
           <tbody>
-            {vehicles.map((vehicle) => (
-              <tr key={vehicle.id} className="border-t">
-                <td className="px-4 py-2">{vehicle.name}</td>
-                <td className="px-4 py-2">{vehicle.plate}</td>
-                <td className="px-4 py-2">{vehicle.capacity}</td>
-                <td className="px-4 py-2">
-                  <span className={`px-2 py-1 rounded text-xs font-medium ${statusColor[vehicle.status]}`}>
+            {vehicleList.map((vehicle) => (
+              <tr key={vehicle.id} className="hover:bg-gray-50">
+                <td className="px-4 py-2 border-b">{vehicle.name}</td>
+                <td className="px-4 py-2 border-b">{vehicle.plate}</td>
+                <td className="px-4 py-2 border-b">{vehicle.gps}</td>
+                <td className="px-4 py-2 border-b">{vehicle.capacity}</td>
+                <td className="px-4 py-2 border-b">{vehicle.driver}</td>
+                <td className="px-4 py-2 border-b">
+                  <span className={
+                    vehicle.status === 'Active' ? 'text-green-600 font-semibold' :
+                    vehicle.status === 'In Service' ? 'text-yellow-600 font-semibold' :
+                    'text-gray-600'
+                  }>
                     {vehicle.status}
                   </span>
                 </td>

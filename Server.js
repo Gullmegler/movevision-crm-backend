@@ -37,6 +37,10 @@ app.get('/', (req, res) => {
   res.send('Move Vision CRM API is running ✅');
 });
 
+// Tailwind Note
+// TailwindCSS is used in the React frontend; it doesn't impact backend setup here.
+// Keep styling logic entirely in your React component CSS/JSX via Tailwind utility classes.
+
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

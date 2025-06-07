@@ -3,10 +3,10 @@ import Sidebar from './components/Sidebar';
 import AppRoutes from './Routes';
 
 export default function App() {
-  // Her kan du senere hente fra innlogget bruker
+  // You can later fetch this from the authenticated user context
   const currentUser = {
     name: 'Frank Karlsen',
-    role: 'admin', // endre til 'user' for vanlige flyttebyrå-brukere
+    role: 'admin', // change to 'user' for moving companies
   };
 
   const isAdmin = currentUser.role === 'admin';

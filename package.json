@@ -2,6 +2,7 @@
   "name": "movevision-crm",
   "version": "1.0.0",
   "type": "module",
+ 803fdb7c (Fix start script for Railway)
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -17,6 +18,17 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.1",
     "mongoose": "^7.4.2",
+    "start": "node src/server.js"  // ← Dette er viktig for Railway
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.6.3",
+ 803fdb7c (Fix start script for Railway)
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^4.10.1",
@@ -24,6 +36,8 @@
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^4.0.2",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+ 803fdb7c (Fix start script for Railway)
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.9",
     "autoprefixer": "^10.4.21",
@@ -33,3 +47,4 @@
     "@vitejs/plugin-react": "^4.2.1"
   }
 }
+

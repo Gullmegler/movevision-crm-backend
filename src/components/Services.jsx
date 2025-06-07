@@ -17,7 +17,9 @@ function getCurrency(locale) {
     'es': 'EUR', 'sv': 'SEK', 'da': 'DKK', 'ja': 'JPY', 'zh': 'CNY',
     'ko': 'KRW', 'ru': 'RUB', 'pl': 'PLN', 'cs': 'CZK', 'hu': 'HUF',
     'tr': 'TRY', 'ar': 'AED', 'pt': 'BRL', 'id': 'IDR', 'th': 'THB',
-    'in': 'INR', 'it': 'EUR', 'fi': 'EUR', 'nl': 'EUR'
+    'in': 'INR', 'it': 'EUR', 'fi': 'EUR', 'nl': 'EUR',
+    'en-CA': 'CAD', 'en-AU': 'AUD', 'en-NZ': 'NZD', 'en-ZA': 'ZAR',
+    'nb': 'NOK', 'nn': 'NOK', 'sv-SE': 'SEK', 'da-DK': 'DKK', 'de-CH': 'CHF', 'fr-CH': 'CHF', 'it-CH': 'CHF'
   };
   const match = Object.keys(currencyMap).find(key => locale.startsWith(key));
   return currencyMap[match] || 'USD';

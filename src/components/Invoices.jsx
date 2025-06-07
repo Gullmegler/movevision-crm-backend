@@ -1,30 +1,63 @@
 import React from 'react';
 
 const invoices = [
-  { id: 1, customer: "John Doe", date: "2025-06-01", amount: 4500, status: "paid" },
-  { id: 2, customer: "Jane Smith", date: "2025-06-03", amount: 7800, status: "unpaid" },
-  { id: 3, customer: "Bob Lee", date: "2025-06-05", amount: 3200, status: "paid" },
-  { id: 4, customer: "Emma Olsen", date: "2025-06-06", amount: 2100, status: "unpaid" },
+  {
+    id: 'INV-1001',
+    customer: 'John Doe',
+    amount: 1200.5,
+    dueDate: '2025-06-20',
+    status: 'Paid'
+  },
+  {
+    id: 'INV-1002',
+    customer: 'Jane Smith',
+    amount: 980,
+    dueDate: '2025-06-22',
+    status: 'Unpaid'
+  },
+  {
+    id: 'INV-1003',
+    customer: 'Acme Corp',
+    amount: 450,
+    dueDate: '2025-06-25',
+    status: 'Overdue'
+  }
 ];
 
-const statusColor = {
-  paid: "bg-green-100 text-green-800",
-  unpaid: "bg-red-100 text-red-800"
-};
+function getCurrency(locale) {
+  const currencyMap = {
+    'en-US': 'USD', 'en-GB': 'GBP', 'no': 'NOK', 'de': 'EUR', 'fr': 'EUR',
+    'es': 'EUR', 'sv': 'SEK', 'da': 'DKK', 'ja': 'JPY', 'zh': 'CNY',
+    'ko': 'KRW', 'ru': 'RUB', 'pl': 'PLN', 'cs': 'CZK', 'hu': 'HUF',
+    'tr': 'TRY', 'ar': 'AED', 'pt': 'BRL', 'id': 'IDR', 'th': 'THB',
+    'in': 'INR', 'it': 'EUR', 'fi': 'EUR', 'nl': 'EUR'
+  };
+  const match = Object.keys(currencyMap).find(key => locale.startsWith(key));
+  return currencyMap[match] || 'USD';
+}
+
+function formatCurrency(amount) {
+  const locale = navigator.language || 'en-US';
+  const currency = getCurrency(locale);
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency
+  }).format(amount);
+}
 
 export default function Invoices() {
   return (
     <div className="p-6">
-      <h2 className="text-xl font-semibold mb-4">Invoices Overview</h2>
-      <div className="overflow-auto shadow rounded">
-        <table className="min-w-full table-auto bg-white text-sm">
-          <thead className="bg-gray-100 text-left text-gray-600">
+      <h2 className="text-xl font-semibold mb-4">Invoices</h2>
+      <div className="overflow-auto rounded bg-white shadow">
+        <table className="min-w-full table-auto text-sm">
+          <thead className="bg-gray-100 text-gray-600">
             <tr>
-              <th className="px-4 py-2">Invoice ID</th>
-              <th className="px-4 py-2">Customer</th>
-              <th className="px-4 py-2">Date</th>
-              <th className="px-4 py-2">Amount (USD)</th>
-              <th className="px-4 py-2">Status</th>
+              <th className="px-4 py-2 text-left">Invoice ID</th>
+              <th className="px-4 py-2 text-left">Customer</th>
+              <th className="px-4 py-2 text-left">Amount</th>
+              <th className="px-4 py-2 text-left">Due Date</th>
+              <th className="px-4 py-2 text-left">Status</th>
             </tr>
           </thead>
           <tbody>
@@ -32,12 +65,10 @@ export default function Invoices() {
               <tr key={invoice.id} className="border-t">
                 <td className="px-4 py-2">{invoice.id}</td>
                 <td className="px-4 py-2">{invoice.customer}</td>
-                <td className="px-4 py-2">{invoice.date}</td>
-                <td className="px-4 py-2">${invoice.amount.toLocaleString()}</td>
-                <td className="px-4 py-2">
-                  <span className={`px-2 py-1 rounded text-xs font-medium ${statusColor[invoice.status]}`}>
-                    {invoice.status}
-                  </span>
+                <td className="px-4 py-2">{formatCurrency(invoice.amount)}</td>
+                <td className="px-4 py-2">{invoice.dueDate}</td>
+                <td className={`px-4 py-2 ${invoice.status === 'Paid' ? 'text-green-600' : invoice.status === 'Overdue' ? 'text-red-600' : 'text-yellow-600'}`}>
+                  {invoice.status}
                 </td>
               </tr>
             ))}

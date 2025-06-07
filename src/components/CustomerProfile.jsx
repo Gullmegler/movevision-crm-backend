@@ -1,3 +1,23 @@
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import CustomerLog from './CustomerLog';
+
+export default function CustomerProfile() {
+  const { id } = useParams();
+  const [customer, setCustomer] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCustomer = async () => {
+      try {
+        const response = await fetch(`/api/customers/${id}`);
+        const data = await response.json();
+        setCustomer(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchCustomer();
   }, [id]);
@@ -42,8 +62,7 @@
         </ul>
       </div>
 
-      <CustomerLog customerId={id} />
+      <CustomerLog />
     </div>
   );
 }
-

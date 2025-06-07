@@ -13,30 +13,11 @@ const services = [
 
 function getCurrency(locale) {
   const currencyMap = {
-    'en-US': 'USD',
-    'en-GB': 'GBP',
-    'no': 'NOK',
-    'de': 'EUR',
-    'fr': 'EUR',
-    'es': 'EUR',
-    'sv': 'SEK',
-    'da': 'DKK',
-    'ja': 'JPY',
-    'zh': 'CNY',
-    'ko': 'KRW',
-    'ru': 'RUB',
-    'pl': 'PLN',
-    'cs': 'CZK',
-    'hu': 'HUF',
-    'tr': 'TRY',
-    'ar': 'AED',
-    'pt': 'BRL',
-    'id': 'IDR',
-    'th': 'THB',
-    'in': 'INR',
-    'it': 'EUR',
-    'fi': 'EUR',
-    'nl': 'EUR'
+    'en-US': 'USD', 'en-GB': 'GBP', 'no': 'NOK', 'de': 'EUR', 'fr': 'EUR',
+    'es': 'EUR', 'sv': 'SEK', 'da': 'DKK', 'ja': 'JPY', 'zh': 'CNY',
+    'ko': 'KRW', 'ru': 'RUB', 'pl': 'PLN', 'cs': 'CZK', 'hu': 'HUF',
+    'tr': 'TRY', 'ar': 'AED', 'pt': 'BRL', 'id': 'IDR', 'th': 'THB',
+    'in': 'INR', 'it': 'EUR', 'fi': 'EUR', 'nl': 'EUR'
   };
   const match = Object.keys(currencyMap).find(key => locale.startsWith(key));
   return currencyMap[match] || 'USD';

@@ -1,13 +1,7 @@
-import React from 'react';
-
-function App() {
+const App = () => {
   return (
-    <div>
-      <h1>Move Vision CRM</h1>
-      <p>Welcome to your CRM dashboard!</p>
-    </div>
+    <div className="text-white">CRM Dashboard kommer her</div>
   );
-}
+};
 
 export default App;
-

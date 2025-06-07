@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 import authRoutes from './routes/auth.js';
 import invoiceRoutes from './routes/invoices.js';
 import webhookRoutes from './routes/webhooks.js';
+import userRoutes from './routes/users.js';
 
 // Load env variables
 dotenv.config();
@@ -31,6 +32,7 @@ mongoose
 app.use('/api/auth', authRoutes);
 app.use('/api/invoices', invoiceRoutes);
 app.use('/api/webhooks', webhookRoutes);
+app.use('/api/users', userRoutes);
 
 // Sample route
 app.get('/', (req, res) => {
@@ -45,3 +47,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+

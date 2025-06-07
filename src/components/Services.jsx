@@ -1,0 +1,37 @@
+import React from 'react';
+
+const services = [
+  { id: 1, name: "Moving Labor", price: 65.0, unit: "per hour" },
+  { id: 2, name: "Packing Service", price: 55.0, unit: "per hour" },
+  { id: 3, name: "Storage Service", price: 200.0, unit: "per month" },
+  { id: 4, name: "Furniture Disassembly", price: 40.0, unit: "per item" },
+  { id: 5, name: "Move-out Cleaning", price: 150.0, unit: "per service" }, // Flyttevask
+];
+
+export default function Services() {
+  return (
+    <div className="p-6">
+      <h2 className="text-xl font-semibold mb-4">Services Offered</h2>
+      <div className="overflow-auto shadow rounded bg-white">
+        <table className="min-w-full text-sm table-auto">
+          <thead className="bg-gray-100 text-left text-gray-600">
+            <tr>
+              <th className="px-4 py-2">Service</th>
+              <th className="px-4 py-2">Price (USD)</th>
+              <th className="px-4 py-2">Unit</th>
+            </tr>
+          </thead>
+          <tbody>
+            {services.map((item) => (
+              <tr key={item.id} className="border-t">
+                <td className="px-4 py-2">{item.name}</td>
+                <td className="px-4 py-2">${item.price.toFixed(2)}</td>
+                <td className="px-4 py-2">{item.unit}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}

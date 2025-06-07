@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { FiHome, FiCalendar, FiUsers, FiFileText, FiTruck, FiSettings, FiBell, FiList, FiBox, FiUserCheck, FiStar, FiLogIn } from 'react-icons/fi';
+import { FiHome, FiCalendar, FiUsers, FiFileText, FiTruck, FiSettings, FiBell, FiList, FiBox, FiUserCheck, FiStar, FiLogIn, FiBarChart2 } from 'react-icons/fi';
 
-export default function Sidebar() {
+export default function Sidebar({ isAdmin }) {
   const [unreadNotifications, setUnreadNotifications] = useState(0);
+  const [surveySubscribers, setSurveySubscribers] = useState(0);
+  const [crmSubscribers, setCrmSubscribers] = useState(0);
 
   useEffect(() => {
-    // Simulert API-kall
-    const fetchNotifications = async () => {
-      // Her erstatter du med faktisk API-kall senere
-      const result = await Promise.resolve({ unread: 5 });
-      setUnreadNotifications(result.unread);
+    const fetchData = async () => {
+      const notifResult = await Promise.resolve({ unread: 5 });
+      setUnreadNotifications(notifResult.unread);
+
+      if (isAdmin) {
+        const surveyResult = await Promise.resolve({ survey: 12 });
+        const crmResult = await Promise.resolve({ crm: 8 });
+        setSurveySubscribers(surveyResult.survey);
+        setCrmSubscribers(crmResult.crm);
+      }
     };
 
-    fetchNotifications();
-  }, []);
+    fetchData();
+  }, [isAdmin]);
 
   const navItem = (to, label, icon, badgeCount = 0) => (
     <NavLink
@@ -54,6 +61,21 @@ export default function Sidebar() {
         {navItem('/notifications', 'Notifications', <FiBell />, unreadNotifications)}
         {navItem('/customers', 'Customers', <FiUsers />)}
         {navItem('/logins', 'Login Audit', <FiLogIn />)}
+        {isAdmin && (
+          <>
+            <div className="px-4 text-xs text-gray-400 pt-4">Subscriptions</div>
+            <div className="px-4 text-sm text-gray-700">
+              <div className="flex justify-between py-1">
+                <span>AI Survey</span>
+                <span className="font-semibold">{surveySubscribers}</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span>AI Survey + CRM</span>
+                <span className="font-semibold">{crmSubscribers}</span>
+              </div>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="pt-6 border-t">

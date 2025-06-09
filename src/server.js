@@ -1,15 +1,16 @@
 // server.js
+
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
+
 import authRoutes from './routes/auth.js';
-import invoiceRoutes from './routes/invoices.js';
+import invoiceRoutes from './routes/invoice.js';
 import webhookRoutes from './routes/webhooks.js';
 import userRoutes from './routes/users.js';
 
-// Load env variables
 dotenv.config();
 
 const app = express();
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 5000;
 
 // Middlewares
 app.use(cors());
+app.use(express.json());
 app.use(bodyParser.json());
 
 // MongoDB Connection
@@ -26,25 +28,20 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log('MongoDB connected ✅'))
-  .catch((err) => console.error('MongoDB error ❌', err));
+  .catch((err) => console.error('MongoDB error ❌:', err));
 
 // Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/invoices', invoiceRoutes);
+app.use('/api/invoice', invoiceRoutes);
 app.use('/api/webhooks', webhookRoutes);
 app.use('/api/users', userRoutes);
 
 // Sample route
 app.get('/', (req, res) => {
-  res.send('Move Vision CRM API is running ✅');
+  res.send('Move Vision CRM API is running 🟢');
 });
-
-// Tailwind Note
-// TailwindCSS is used in the React frontend; it doesn't impact backend setup here.
-// Keep styling logic entirely in your React component CSS/JSX via Tailwind utility classes.
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
 });
-

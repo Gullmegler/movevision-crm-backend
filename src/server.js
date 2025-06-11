@@ -5,6 +5,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import axios from "axios";
 
+// Ruter
 import authRoutes from "./routes/auth.js";
 import invoiceRoutes from "./routes/invoice.js";
 import webhookRoutes from "./routes/webhooks.js";
@@ -13,9 +14,10 @@ import userRoutes from "./routes/users.js";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
+// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -28,13 +30,13 @@ mongoose
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB error:", err));
 
-// API-ruter
+// Ruter
 app.use("/api/auth", authRoutes);
 app.use("/api/invoice", invoiceRoutes);
 app.use("/api/webhooks", webhookRoutes);
 app.use("/api/users", userRoutes);
 
-// ✅ Ny: Google Maps-rute for avstand og koordinater
+// ✅ Google Maps: Hent koordinater + avstand
 app.post("/api/maps/calculate", async (req, res) => {
   const { fromAddress, toAddress } = req.body;
 
@@ -55,7 +57,7 @@ app.post("/api/maps/calculate", async (req, res) => {
       return res.status(400).json({ error: "Fant ikke koordinater for en eller begge adresser." });
     }
 
-    // Distance Matrix
+    // Avstand og tid
     const distanceRes = await axios.get("https://maps.googleapis.com/maps/api/distancematrix/json", {
       params: {
         origins: `${fromCoords.lat},${fromCoords.lng}`,
@@ -78,11 +80,12 @@ app.post("/api/maps/calculate", async (req, res) => {
   }
 });
 
-// Helse-endepunkt
+// ✅ Status-sjekk
 app.get("/", (req, res) => {
   res.send("✅ Move Vision CRM API is running");
 });
 
+// ✅ Test MongoDB-tilkobling
 app.get("/ping-mongo", async (req, res) => {
   try {
     await mongoose.connection.db.admin().ping();
@@ -92,6 +95,7 @@ app.get("/ping-mongo", async (req, res) => {
   }
 });
 
+// Start server
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
